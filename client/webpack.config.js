@@ -1,14 +1,20 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const PORT = process.env.PORT || 3000;
 
 module.exports = {
-    entry: [ 'babel-polyfill', './index.js' ],
+    entry: [
+        'babel-polyfill',
+        'webpack-dev-server/client?http://localhost:' + PORT,
+        './index.js'
+    ],
     output: {
         filename: 'bundle.js',
-        path: resolve(__dirname, 'dist'),
-        publicPath: '/'
+        path: resolve(__dirname, '..'),
+        publicPath: '/client/dist'
     },
     context: resolve(__dirname, 'src'),
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -37,11 +43,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.NamedModulesPlugin()
     ]
 };
