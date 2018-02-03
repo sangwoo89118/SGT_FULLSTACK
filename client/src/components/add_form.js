@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { addStudent, getStudents } from '../actions'
 import { connect } from 'react-redux';
-
+import {AddModal} from '../helpers/'
 
 class AddForm extends Component {
 
@@ -10,7 +10,9 @@ class AddForm extends Component {
         super(props);
 
         this.state={
-            errorMessage: ''
+            errorMessage: '',
+            modalVisible: false,
+            values: {}
         }
     }
 
@@ -18,15 +20,19 @@ class AddForm extends Component {
         this.props.addStudent(values.name, values.course, values.grade)
             .then(()=>{
                 if(this.props.success){
-                    this.props.getStudents();
+                    this.props.getStudents()
                     this.setState({
-                        errorMessage: ''
+                        errorMessage: '',
+                        modalVisible: true,
+                        values: values
                     })
+
                 }else{
                     this.setState({
                         errorMessage:this.props.errorMessage
                     })
                 }
+                this.props.reset();
             })
     }
 
@@ -50,11 +56,16 @@ class AddForm extends Component {
         )
     }
 
+    hideAddModal(){
+        this.setState({
+            modalVisible: false
+        })
+    }
+
 
 
     render() {
         return (
-
             <form className="student-add-form col-md-3 col-md-push-9" onSubmit={this.props.handleSubmit(this.addStudents.bind(this))}>
                 <h4>Add Student</h4>
                 <Field name='name' placeholder='Student Name' type='text' component={this.renderInput}/>
@@ -63,6 +74,8 @@ class AddForm extends Component {
 
                 <button type="submit" className="btn btn-success add">Add</button>
                 <p className='text-danger'>{!this.state.errorMessage ? '': this.state.errorMessage  }</p>
+
+                {this.state.modalVisible ? <AddModal  callback={this.hideAddModal.bind(this)} data={this.state.values}/> : ''}
             </form>
         );
     }
