@@ -31,15 +31,15 @@ class AddForm extends Component {
     }
 
 
-    renderInput({input, type, placeholder, meta:{touched, active, error}}){
+    renderInput({input, type, placeholder, meta:{touched, error}}){
         const style = {
             color: 'red'
         }
-        const errorMessage = (touched && !active && error) ?
+        const errorMessage = (touched && error) ?
                 <p className='form-control' style={style}>{error}</p> : ''
 
         return (
-            <div className={`input-group form-group ${touched && !active && error? 'has-error': ''}`}>
+            <div className={`input-group form-group ${touched && error? 'has-error': ''}`}>
 
                 <span className="input-group-addon">
                     <span className="glyphicon glyphicon-user"></span>
