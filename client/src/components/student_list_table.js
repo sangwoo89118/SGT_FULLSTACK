@@ -12,12 +12,18 @@ class StudentListTable extends Component {
     }
 
     render() {
+        console.log('studentList', this.props.students);
 
         const students = this.props.students.map( (item, index)=>{
-            return <Students key={index} {...item}/>
+            return(
+                <tbody key={index}>
+                    <Students {...item}/>
+                </tbody>
+
+            )
         })
 
-        if(!this.props.students) return;
+
         return (
             <div className="student-list-container col-md-9 col-md-pull-3">
                 <table className="student-list table">
@@ -31,11 +37,9 @@ class StudentListTable extends Component {
                     </thead>
                     <tbody>
                     </tbody>
-
-                <tbody>
                     {students}
-                </tbody>
                 </table>
+                <h1 className='text-center'>{this.props.students.length ? '' : 'There are no data'}</h1>
             </div>
         );
     }
