@@ -8,7 +8,6 @@ const DEFAULT_STATE={
 export default function(state=DEFAULT_STATE, action){
     switch(action.type){
         case types.GET_STUDENTS:
-            console.log('students reducer', action);
             return {list: action.payload.data.data}
         default:
             return state;

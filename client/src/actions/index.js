@@ -25,7 +25,6 @@ export function addStudent(name, course, grade){
         grade: grade
 
     })
-    console.log('action index.js:');
     return{
         type: types.ADD_STUDENT,
         payload: request
