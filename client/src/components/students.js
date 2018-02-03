@@ -46,7 +46,7 @@ class Students extends Component {
 
 
     render() {
-
+        console.log('students');
         return (
             <tr>
                 <td>{this.props.name}</td>
