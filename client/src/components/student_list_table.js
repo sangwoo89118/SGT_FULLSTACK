@@ -11,9 +11,6 @@ class StudentListTable extends Component {
         this.props.getStudents();
     }
 
-
-
-
     render() {
 
         const students = this.props.students.map( (item, index)=>{

@@ -9,9 +9,6 @@ export default function(state=DEFAULT_STATE, action){
     switch(action.type){
         case types.GET_STUDENTS:
             return {list: action.payload.data.data}
-        case types.ADD_STUDENTS:
-            console.log('reducer action:', action);
-            return state
         default:
             return state;
     }
