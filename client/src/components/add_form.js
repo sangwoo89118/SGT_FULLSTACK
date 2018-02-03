@@ -37,7 +37,7 @@ class AddForm extends Component {
     }
 
 
-    renderInput({input, type, placeholder, meta:{touched, error}}){
+    renderInput({input, type, placeholder, glyphicon, meta:{touched, error}}){
         const style = {
             color: 'red'
         }
@@ -48,7 +48,7 @@ class AddForm extends Component {
             <div className={`input-group form-group ${touched && error? 'has-error': ''}`}>
 
                 <span className="input-group-addon">
-                    <span className="glyphicon glyphicon-user"></span>
+                    <span className={`glyphicon ${glyphicon}`}></span>
                 </span>
                 <input {...input} type={type} className="form-control" name={name} placeholder={placeholder}/>
                 {errorMessage}
@@ -68,9 +68,9 @@ class AddForm extends Component {
         return (
             <form className="student-add-form col-md-3 col-md-push-9" onSubmit={this.props.handleSubmit(this.addStudents.bind(this))}>
                 <h4>Add Student</h4>
-                <Field name='name' placeholder='Student Name' type='text' component={this.renderInput}/>
-                <Field name='course' placeholder='Student Course' type='text' component={this.renderInput}/>
-                <Field name='grade' placeholder='Student Grade' type='text' component={this.renderInput}/>
+                <Field name='name' placeholder='Student Name' type='text' glyphicon='glyphicon-user' component={this.renderInput}/>
+                <Field name='course' placeholder='Student Course' type='text' glyphicon='glyphicon-list-alt' component={this.renderInput}/>
+                <Field name='grade' placeholder='Student Grade' type='text' glyphicon='glyphicon-education' component={this.renderInput}/>
 
                 <button type="submit" className="btn btn-success add">Add</button>
                 <p className='text-danger'>{!this.state.errorMessage ? '': this.state.errorMessage  }</p>

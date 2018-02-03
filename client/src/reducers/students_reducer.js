@@ -12,7 +12,6 @@ export default function(state=DEFAULT_STATE, action){
             const data = action.payload.data.data;
             const average = data.reduce((total, list)=> total + parseInt(list.grade), 0) / data.length;
 
-
             return {list: data, average: Math.round(average)}
         default:
             return state;
