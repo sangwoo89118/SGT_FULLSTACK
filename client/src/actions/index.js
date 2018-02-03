@@ -32,3 +32,14 @@ export function addStudent(name, course, grade){
 }
 
 
+const DELETE_URL = 'http://localhost/server.php?action=post&resource=delete_student';
+
+export function deleteStudent(id){
+    const request = axios.post(DELETE_URL,{
+        id: id
+    })
+    return{
+        type: types.DELETE_STUDENT,
+        payload: request
+    }
+}
