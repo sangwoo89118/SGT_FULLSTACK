@@ -30,7 +30,13 @@ switch($_GET['action']){
                 if(!empty($post)){
                     require_once('./actions/add_student.php');
                 }
-            break;
+                break;
+
+            case 'delete_student':
+                if(!empty($post)){
+                    require_once('./actions/delete_student.php');
+                }
+                break;
         }
 
 }
