@@ -37,6 +37,11 @@ switch($_GET['action']){
                     require_once('./actions/delete_student.php');
                 }
                 break;
+            case 'edit_student':
+                if(!empty($post)){
+                    require_once('./actions/edit_student.php');
+                }
+                break;
         }
 
 }

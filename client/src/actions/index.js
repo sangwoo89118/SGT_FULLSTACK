@@ -43,3 +43,26 @@ export function deleteStudent(id){
         payload: request
     }
 }
+
+
+const EDIT_URL = 'http://localhost/server.php?action=post&resource=edit_student';
+
+export function editStudent(name, course, grade, id){
+    const request = axios.post(EDIT_URL,{
+        name: name,
+        course: course,
+        grade: grade,
+        id: id
+    })
+    console.log('in actions name course grade id', name, course, grade, id);
+    return{
+        type: types.EDIT_STUDENT,
+        payload: request
+    }
+}
+
+
+
+
+
+

@@ -12,17 +12,11 @@ class StudentListTable extends Component {
     }
 
     render() {
-        console.log('studentList', this.props.students);
-
         const students = this.props.students.map( (item, index)=>{
             return(
-                <tbody key={index}>
-                    <Students {...item}/>
-                </tbody>
-
+                <Students key={index} {...item}/>
             )
         })
-
 
         return (
             <div className="student-list-container col-md-9 col-md-pull-3">
