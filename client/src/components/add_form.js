@@ -9,6 +9,10 @@ class AddForm extends Component {
     constructor(props){
         super(props);
 
+        this.state={
+            errorMessage: ''
+        }
+
 
     }
 
@@ -17,7 +21,17 @@ class AddForm extends Component {
         console.log('hello ', values);
         this.props.addStudent(values.name, values.course, values.grade)
             .then(()=>{
-                this.props.getStudents()
+                if(this.props.success){
+                    this.props.getStudents();
+                    this.setState({
+                        errorMessage: ''
+                    })
+                }else{
+                    this.setState({
+                        errorMessage:this.props.errorMessage
+                    })
+                }
+
             })
     }
 
@@ -45,6 +59,7 @@ class AddForm extends Component {
                 <Field name='grade' placeholder='Student Grade' type='text' component={this.renderInput}/>
 
                 <button type="submit" className="btn btn-success add">Add</button>
+                <p>{!this.state.errorMessage ? '': this.state.errorMessage  }</p>
             </form>
         );
     }
@@ -71,10 +86,16 @@ AddForm = reduxForm({
     form: 'add-form'
 })(AddForm);
 
+function mapStateToProps(state){
+    return{
+        success: state.addStudent.success,
+        errorMessage: state.addStudent.errorMessage
+    }
+}
 
 
 
-export default connect(null, {addStudent, getStudents})(AddForm);
+export default connect(mapStateToProps, {addStudent, getStudents})(AddForm);
 
 
 
