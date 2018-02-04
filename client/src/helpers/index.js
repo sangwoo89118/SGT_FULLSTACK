@@ -46,15 +46,11 @@ export class DeleteModal extends Component{
         this.handleConfirm = this.handleConfirm.bind(this);
     }
 
-
     handleConfirm(){
         this.props.confirmDeleteStudent();
     }
 
-
-
      render(){
-        console.log('in deleteModal', this.props);
         const {name, course, grade} = this.props.data
         return (
             <span>

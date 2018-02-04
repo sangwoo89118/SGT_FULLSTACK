@@ -54,7 +54,6 @@ export function editStudent(name, course, grade, id){
         grade: grade,
         id: id
     })
-    console.log('in actions name course grade id', name, course, grade, id);
     return{
         type: types.EDIT_STUDENT,
         payload: request

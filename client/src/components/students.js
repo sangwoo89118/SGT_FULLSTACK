@@ -20,12 +20,22 @@ class Students extends Component {
             },
             changed: false
         }
-
-
         this.showDeleteModal = this.showDeleteModal.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            form:{
+                name:nextProps.name,
+                course: nextProps.course,
+                grade: nextProps.grade
+            }
+        })
+    }
+
 
     toggleEdit(){
         this.setState({
@@ -36,6 +46,7 @@ class Students extends Component {
         if( this.state.changed){
             const {name, course, grade} = this.state.form
             this.props.editStudent(name, course, grade, this.props.id)
+                .then(()=>{ this.props.getStudents()})
         }
     }
 
@@ -54,10 +65,8 @@ class Students extends Component {
 
     deleteStudent(){
         this.props.deleteStudent(this.props.id)
-            .then(()=>{
-                this.hideDeleteModal();
-                this.props.getStudents();
-            })
+            .then(()=>this.props.getStudents())
+                .then(()=>this.hideDeleteModal())
     }
 
     handleChange(e){
@@ -68,7 +77,6 @@ class Students extends Component {
             form: {...form},
             changed: true
         });
-
     }
 
     render() {
@@ -86,9 +94,9 @@ class Students extends Component {
 
         const students = (
             <tr>
-                <td>{this.state.form.name}</td>
-                <td>{this.state.form.course}</td>
-                <td>{this.state.form.grade}</td>
+                <td>{this.props.name}</td>
+                <td>{this.props.course}</td>
+                <td>{this.props.grade}</td>
                 {button}
             </tr>
         )
@@ -99,11 +107,18 @@ class Students extends Component {
                 <td><input name='course' onChange={this.handleChange} type="text" value={this.state.form.course}/></td>
                 <td><input name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
                 {button}
-                <td>{this.state.modalVisible ? <DeleteModal confirmDeleteStudent={this.deleteStudent.bind(this)} hideModal={this.hideDeleteModal.bind(this)} data={this.props}/> : ''}</td>
+                <td>
+                    {this.state.modalVisible ?
+                        <DeleteModal
+                            confirmDeleteStudent={this.deleteStudent.bind(this)}
+                            hideModal={this.hideDeleteModal.bind(this)}
+                            data={this.props}/>
+                        :
+                        ''
+                    }
+                </td>
             </tr>
         )
-
-
 
         return (
             <tbody>
