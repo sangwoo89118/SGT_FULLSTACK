@@ -85,21 +85,30 @@ class Students extends Component {
             <td>
                 <button onClick={this.showDeleteModal} className="delete btn btn-danger">DELETE</button>
                 <button onClick={this.toggleEdit} className="delete btn btn-warning">Okay</button>
+                {this.state.modalVisible ?
+                    <DeleteModal
+                        confirmDeleteStudent={this.deleteStudent.bind(this)}
+                        hideModal={this.hideDeleteModal.bind(this)}
+                        data={this.props}/>
+                    :
+                    ''
+                }
+
             </td>
             :
             <td>
                 <button onClick={this.toggleEdit} className="delete btn btn-info">EDIT</button>
             </td>
-        )
+        );
 
         const students = (
-            <tr>
+            <tr className={parseInt(this.props.grade) === 100 ? 'success' : ''}>
                 <td>{this.props.name}</td>
                 <td>{this.props.course}</td>
                 <td>{this.props.grade}</td>
                 {button}
             </tr>
-        )
+        );
 
         const editInputs= (
             <tr>
@@ -107,24 +116,15 @@ class Students extends Component {
                 <td><input name='course' onChange={this.handleChange} type="text" value={this.state.form.course}/></td>
                 <td><input name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
                 {button}
-                <td>
-                    {this.state.modalVisible ?
-                        <DeleteModal
-                            confirmDeleteStudent={this.deleteStudent.bind(this)}
-                            hideModal={this.hideDeleteModal.bind(this)}
-                            data={this.props}/>
-                        :
-                        ''
-                    }
-                </td>
             </tr>
-        )
-
-        return (
-            <tbody>
-                {this.state.edit ? editInputs : students}
-            </tbody>
         );
+
+        if(this.state.edit){
+            return editInputs;
+        }else{
+            return students;
+        }
+
     }
 }
 

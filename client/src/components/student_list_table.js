@@ -19,8 +19,8 @@ class StudentListTable extends Component {
         })
 
         return (
-            <div className="student-list-container col-md-9 col-md-pull-3">
-                <table className="student-list table">
+            <div className="col-md-9 col-md-pull-3">
+                <table className="table table-striped pull-left">
                     <thead>
                     <tr>
                         <th>Student Name</th>
@@ -30,8 +30,8 @@ class StudentListTable extends Component {
                     </tr>
                     </thead>
                     <tbody>
+                        {students}
                     </tbody>
-                    {students}
                 </table>
                 <h1 className='text-center'>{this.props.students.length ? '' : 'There are no data'}</h1>
             </div>

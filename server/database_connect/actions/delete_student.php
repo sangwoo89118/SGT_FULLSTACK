@@ -11,6 +11,7 @@ $result = mysqli_query($conn, $query);
 if ($result) {
     if (mysqli_affected_rows($conn) > 0) {
         $output['success'] = true;
+        $output['error'] = $conn;
     } else {$output['errors'][] = 'no data available';}
 }
 else {

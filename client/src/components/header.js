@@ -9,10 +9,10 @@ class Header extends Component {
         return (
             <div className="page-header">
                 <h1 className="hidden-xs">Student Grade Table
-                    <small className="pull-right">Grade Average : <span className="avgGrade label label-default" >{this.props.average}</span></small>
+                    <small className="pull-right">Grade Average : <span className="label label-default" >{this.props.average}</span></small>
                 </h1>
                 <h3 className="visible-xs">Student Grade Table
-                    <small className='pull-right'>Grade Average : <span className="avgGrade label label-default">{this.props.average}</span></small>
+                    <small className='pull-right'>Grade Average : <span className="label label-default">{this.props.average}</span></small>
                 </h3>
             </div>
         );

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../assets/css/style.css'
 
 import Header from './header';
 import AddForm from './add_form'
