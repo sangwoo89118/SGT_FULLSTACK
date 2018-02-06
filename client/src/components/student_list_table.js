@@ -7,9 +7,30 @@ import Students from './students';
 
 class StudentListTable extends Component {
 
+    constructor(props){
+        super(props);
+
+
+        this.scrollTop = this.scrollTop.bind(this);
+    }
+
     componentWillMount(){
         this.props.getStudents();
+         window.addEventListener('scroll', this.scroll)
     }
+
+    scroll(){
+        if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+            document.getElementById("scrollUp").style.display = "block";
+        } else {
+            document.getElementById("scrollUp").style.display = "none";
+        }
+    }
+
+    scrollTop(){
+        document.documentElement.scrollTop = 0;
+    }
+
 
     render() {
         const students = this.props.students.map( (item, index)=>{
@@ -33,6 +54,7 @@ class StudentListTable extends Component {
                         {students}
                     </tbody>
                 </table>
+                <button id='scrollUp' onClick={this.scrollTop}>TOP</button>
                 <h1 className='text-center'>{this.props.students.length ? '' : 'There are no data'}</h1>
             </div>
         );
