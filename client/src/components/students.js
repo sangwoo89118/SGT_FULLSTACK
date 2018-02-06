@@ -83,8 +83,8 @@ class Students extends Component {
         const button = (
             this.state.edit ?
             <td>
-                <button onClick={this.showDeleteModal} className="delete btn btn-danger">DELETE</button>
-                <button onClick={this.toggleEdit} className="delete btn btn-warning">Okay</button>
+                <button onClick={this.showDeleteModal} className="delete btn btn-danger">DEL</button>
+                <button onClick={this.toggleEdit} className="delete btn btn-warning">Save</button>
                 {this.state.modalVisible ?
                     <DeleteModal
                         confirmDeleteStudent={this.deleteStudent.bind(this)}

@@ -85,6 +85,7 @@ class AddForm extends Component {
 function validate(values){
     const error ={}
 
+
     if(!values.name){
         error.name = 'Please enter student\'s name';
     }
@@ -94,7 +95,7 @@ function validate(values){
     if(!values.grade){
         error.grade = 'Please enter student\'s grade';
     }
-    if(!/^[1-9][0-9]?$|^100$/.test(values.grade)){
+    if(values.grade && !/^[1-9][0-9]?$|^100$/.test(values.grade)){
         error.grade = 'Please enter the grade 1 - 100';
     }
 
