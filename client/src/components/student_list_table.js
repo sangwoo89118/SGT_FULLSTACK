@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getStudents } from '../actions/';
+import { getStudents, switchBackEndRoute } from '../actions/';
 import Students from './students';
 
 
@@ -14,10 +14,13 @@ class StudentListTable extends Component {
         this.scrollTop = this.scrollTop.bind(this);
     }
 
-    componentWillMount(){
+    componentDidMount(){
+        this.props.switchBackEndRoute('php')
         this.props.getStudents();
-         window.addEventListener('scroll', this.scroll)
+        window.addEventListener('scroll', this.scroll)
     }
+
+
 
     scroll(){
         if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
@@ -33,6 +36,7 @@ class StudentListTable extends Component {
 
 
     render() {
+
         const students = this.props.students.map( (item, index)=>{
             return(
                 <Students key={index} {...item}/>
@@ -64,9 +68,11 @@ class StudentListTable extends Component {
 
 
 function mapStateToProps(state){
+
     return{
-        students: state.students.list
+        students: state.students.list,
+        backEndRoute: state.route
     }
 }
 
-export default connect(mapStateToProps, {getStudents})(StudentListTable);
+export default connect(mapStateToProps, {getStudents, switchBackEndRoute})(StudentListTable);
