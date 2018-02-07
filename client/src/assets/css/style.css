@@ -1,5 +1,5 @@
 input{
-    width:100%
+    width:100%;
 }
 
 table{
@@ -10,7 +10,7 @@ table{
 table td:nth-child(1),
 table td:nth-child(2){
     overflow: hidden;
-    white-space: nowrap;
+    white-space: pre-line;
     text-overflow:ellipsis;
 }
 
