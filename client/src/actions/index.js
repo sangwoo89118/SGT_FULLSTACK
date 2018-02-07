@@ -4,11 +4,17 @@ import types from './types';
 import axios from 'axios';
 
 
-const BASE_URL = 'http://localhost/server.php?action=get&resource=students';
 
 
-export function getStudents(){
-    const request = axios.get(BASE_URL)
+export function getStudents(url='php'){
+
+    if(url == 'php'){
+        url = 'http://localhost/server.php?resource=students'
+    }else if(url === 'node'){
+        url = 'http://localhost:5500/students'
+    }
+
+    const request = axios.get(url)
     return{
         type:types.GET_STUDENTS,
         payload: request
@@ -16,10 +22,16 @@ export function getStudents(){
 }
 
 
-const ADD_URL = 'http://localhost/server.php?action=post&resource=add_student';
 
-export function addStudent(name, course, grade){
-    const request = axios.post(ADD_URL, {
+export function addStudent(route='php', name, course, grade){
+
+    if(route === 'php'){
+        route = 'http://localhost/server.php?resource=add_student'
+    }else if(route === 'node'){
+        route = 'http://localhost:5500/addStudent'
+    }
+
+    const request = axios.post(route, {
         name: name,
         course: course,
         grade: grade
@@ -32,10 +44,17 @@ export function addStudent(name, course, grade){
 }
 
 
-const DELETE_URL = 'http://localhost/server.php?action=post&resource=delete_student';
 
-export function deleteStudent(id){
-    const request = axios.post(DELETE_URL,{
+
+export function deleteStudent(route='php', id){
+
+    if(route === 'php'){
+        route = 'http://localhost/server.php?resource=delete_student'
+    }else if( route === 'node' ) {
+        route = 'http://localhost:5500/deleteStudent'
+    }
+
+    const request = axios.post(route,{
         id: id
     })
     return{
@@ -45,10 +64,17 @@ export function deleteStudent(id){
 }
 
 
-const EDIT_URL = 'http://localhost/server.php?action=post&resource=edit_student';
 
-export function editStudent(name, course, grade, id){
-    const request = axios.post(EDIT_URL,{
+
+export function editStudent(route='php' ,name, course, grade, id){
+
+    if(route === 'php'){
+        route = 'http://localhost/server.php?resource=edit_student'
+    }else if(route === 'node'){
+        route = 'http://localhost:5500/editStudent'
+    }
+
+    const request = axios.post(route,{
         name: name,
         course: course,
         grade: grade,
@@ -57,6 +83,15 @@ export function editStudent(name, course, grade, id){
     return{
         type: types.EDIT_STUDENT,
         payload: request
+    }
+}
+
+
+export function switchBackEndRoute(route){
+
+    return{
+        type: types.SWITCH_BACKEND_ROUTE,
+        payload:route
     }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { addStudent, getStudents } from '../actions'
+import { addStudent, getStudents, switchBackEndRoute } from '../actions'
 import { connect } from 'react-redux';
 import {AddModal} from '../helpers/'
 
@@ -12,15 +12,16 @@ class AddForm extends Component {
         this.state={
             errorMessage: '',
             modalVisible: false,
-            values: {}
+            values: {},
+            currentRoute: 'php'
         }
     }
 
     addStudents(values){
-        this.props.addStudent(values.name, values.course, values.grade)
+        this.props.addStudent(this.props.backEndRoute, values.name, values.course, values.grade)
             .then(()=>{
                 if(this.props.success){
-                    this.props.getStudents()
+                    this.props.getStudents(this.props.backEndRoute)
                     this.setState({
                         errorMessage: '',
                         modalVisible: true,
@@ -62,9 +63,28 @@ class AddForm extends Component {
         })
     }
 
+    switchBackEnd(route){
 
+        this.props.switchBackEndRoute(route);
+
+        if(route === 'php'){
+            this.setState({
+                currentRoute: route
+            })
+        }else if(route === 'node'){
+            this.setState({
+                currentRoute: route
+            })
+        }
+
+
+
+    }
 
     render() {
+        const {currentRoute} = this.state;
+        console.log('this.state.currentRoute', this.state.currentRoute);
+
         return (
             <form className="col-md-3 col-md-push-9" onSubmit={this.props.handleSubmit(this.addStudents.bind(this))}>
                 <h4>Add Student</h4>
@@ -72,7 +92,15 @@ class AddForm extends Component {
                 <Field name='course' placeholder='Student Course' type='text' glyphicon='glyphicon-list-alt' component={this.renderInput}/>
                 <Field name='grade' placeholder='Student Grade' type='text' glyphicon='glyphicon-education' component={this.renderInput}/>
 
-                <button type="submit" className="btn btn-success add">Add</button>
+                <button type="submit" className="btn btn-success">Add</button>
+
+                <div className='pull-right'>
+                    <button type="button" className={`btn ${currentRoute === 'php' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('php')}>PHP</button>
+                    <button type="button" className={`btn ${currentRoute === 'node' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('node')}>Node</button>
+                </div>
+
+
+
                 <p className='text-danger'>{!this.state.errorMessage ? '': this.state.errorMessage  }</p>
 
                 {this.state.modalVisible ? <AddModal  callback={this.hideAddModal.bind(this)} data={this.state.values}/> : ''}
@@ -85,6 +113,7 @@ class AddForm extends Component {
 function validate(values){
     const error ={}
 
+
     if(!values.name){
         error.name = 'Please enter student\'s name';
     }
@@ -94,7 +123,7 @@ function validate(values){
     if(!values.grade){
         error.grade = 'Please enter student\'s grade';
     }
-    if(!/^[1-9][0-9]?$|^100$/.test(values.grade)){
+    if(values.grade && !/^[1-9][0-9]?$|^100$/.test(values.grade)){
         error.grade = 'Please enter the grade 1 - 100';
     }
 
@@ -112,13 +141,14 @@ AddForm = reduxForm({
 function mapStateToProps(state){
     return{
         success: state.addStudent.success,
-        errorMessage: state.addStudent.errorMessage
+        errorMessage: state.addStudent.errorMessage,
+        backEndRoute: state.route
     }
 }
 
 
 
-export default connect(mapStateToProps, {addStudent, getStudents})(AddForm);
+export default connect(mapStateToProps, {addStudent, getStudents, switchBackEndRoute})(AddForm);
 
 
 

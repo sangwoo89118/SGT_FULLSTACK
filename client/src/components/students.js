@@ -45,8 +45,9 @@ class Students extends Component {
 
         if( this.state.changed){
             const {name, course, grade} = this.state.form
-            this.props.editStudent(name, course, grade, this.props.id)
-                .then(()=>{ this.props.getStudents()})
+            console.log('toggleEdit', this.props.backEndRoute);
+            this.props.editStudent(this.props.backEndRoute, name, course, grade, this.props.id)
+                .then(()=>{ this.props.getStudents(this.props.backEndRoute)})
         }
     }
 
@@ -64,9 +65,9 @@ class Students extends Component {
 
 
     deleteStudent(){
-        this.props.deleteStudent(this.props.id)
-            .then(()=>this.props.getStudents())
-                .then(()=>this.hideDeleteModal())
+        this.props.deleteStudent(this.props.backEndRoute, this.props.id)
+            .then(()=>this.props.getStudents(this.props.backEndRoute))
+                .then(()=>this.hideDeleteModal(this.props.backEndRoute))
     }
 
     handleChange(e){
@@ -80,11 +81,13 @@ class Students extends Component {
     }
 
     render() {
+
+
         const button = (
             this.state.edit ?
             <td>
-                <button onClick={this.showDeleteModal} className="delete btn btn-danger">DELETE</button>
-                <button onClick={this.toggleEdit} className="delete btn btn-warning">Okay</button>
+                <button onClick={this.showDeleteModal} className="delete btn btn-danger">DEL</button>
+                <button onClick={this.toggleEdit} className="delete btn btn-warning">Save</button>
                 {this.state.modalVisible ?
                     <DeleteModal
                         confirmDeleteStudent={this.deleteStudent.bind(this)}
@@ -132,7 +135,8 @@ class Students extends Component {
 function mapStateToProps(state){
     return{
         success: state.deleteStudent.success,
-        errorMessage: state.deleteStudent.errorMessage
+        errorMessage: state.deleteStudent.errorMessage,
+        backEndRoute: state.route
     }
 }
 
