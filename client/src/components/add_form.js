@@ -15,6 +15,8 @@ class AddForm extends Component {
             values: {},
             currentRoute: 'php'
         }
+
+        this.addStudents = this.addStudents.bind(this);
     }
 
     addStudents(values){
@@ -35,13 +37,17 @@ class AddForm extends Component {
                 }
                 this.props.reset();
             })
+
+
     }
 
 
-    renderInput({input, type, placeholder, glyphicon, meta:{touched, error}}){
+    renderInput({input, input:{onBlur}, type, placeholder, glyphicon, meta:{touched, error}}){
         const style = {
             color: 'red'
         }
+
+
         const errorMessage = (touched && error) ?
                 <p className='form-control' style={style}>{error}</p> : ''
 
@@ -51,7 +57,7 @@ class AddForm extends Component {
                 <span className="input-group-addon">
                     <span className={`glyphicon ${glyphicon}`}></span>
                 </span>
-                <input {...input} type={type} className="form-control" name={name} placeholder={placeholder}/>
+                <input {...input} onBlur={()=>{return}} type={type} className="form-control" name={name} placeholder={placeholder}/>
                 {errorMessage}
             </div>
         )
@@ -83,16 +89,15 @@ class AddForm extends Component {
 
     render() {
         const {currentRoute} = this.state;
-        console.log('this.state.currentRoute', this.state.currentRoute);
 
         return (
-            <form className="col-md-3 col-md-push-9" onSubmit={this.props.handleSubmit(this.addStudents.bind(this))}>
+            <form className="col-md-3 col-md-push-9" onSubmit={this.props.handleSubmit(this.addStudents)}>
                 <h4>Add Student</h4>
                 <Field name='name' placeholder='Student Name' type='text' glyphicon='glyphicon-user' component={this.renderInput}/>
                 <Field name='course' placeholder='Student Course' type='text' glyphicon='glyphicon-list-alt' component={this.renderInput}/>
                 <Field name='grade' placeholder='Student Grade' type='text' glyphicon='glyphicon-education' component={this.renderInput}/>
 
-                <button type="submit" className="btn btn-success">Add</button>
+                <button className="btn btn-success">Add</button>
 
                 <div className='pull-right'>
                     <button type="button" className={`btn ${currentRoute === 'php' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('php')}>PHP</button>
@@ -120,10 +125,8 @@ function validate(values){
     if(!values.course){
         error.course = 'Please enter student\'s course';
     }
-    if(!values.grade){
-        error.grade = 'Please enter student\'s grade';
-    }
-    if(values.grade && !/^[1-9][0-9]?$|^100$/.test(values.grade)){
+
+    if(!values.grade || !/^[1-9][0-9]?$|^100$/.test(values.grade)){
         error.grade = 'Please enter the grade 1 - 100';
     }
 
@@ -135,7 +138,8 @@ function validate(values){
 
 AddForm = reduxForm({
     form: 'add-form',
-    validate: validate
+    validate: validate,
+
 })(AddForm);
 
 function mapStateToProps(state){
