@@ -28,7 +28,7 @@ export function addStudent(route='php', name, course, grade){
     if(route === 'php'){
         route = '/server/php/server.php?resource=add_student'
     }else if(route === 'node'){
-        route = '/student/addStudent'
+        route = 'http://sgt.sangwoo.me:5500/addStudent'
     }
 
     const request = axios.post(route, {
@@ -51,7 +51,7 @@ export function deleteStudent(route='php', id){
     if(route === 'php'){
         route = '/server/php/server.php?resource=delete_student'
     }else if( route === 'node' ) {
-        route = 'http://localhost:5500/deleteStudent'
+        route = 'http://sgt.sangwoo.me:5500/deleteStudent'
     }
 
     const request = axios.post(route,{
