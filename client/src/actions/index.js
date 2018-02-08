@@ -9,7 +9,7 @@ import axios from 'axios';
 export function getStudents(url='php'){
 
     if(url == 'php'){
-        url = 'http://localhost/server.php?resource=students'
+        url = 'http://localhost/server/php/server.php?resource=students'
     }else if(url === 'node'){
         url = 'http://localhost:5500/students'
     }
@@ -26,7 +26,7 @@ export function getStudents(url='php'){
 export function addStudent(route='php', name, course, grade){
 
     if(route === 'php'){
-        route = 'http://localhost/server.php?resource=add_student'
+        route = 'http://localhost/server/php/server.php?resource=add_student'
     }else if(route === 'node'){
         route = 'http://localhost:5500/addStudent'
     }
@@ -49,7 +49,7 @@ export function addStudent(route='php', name, course, grade){
 export function deleteStudent(route='php', id){
 
     if(route === 'php'){
-        route = 'http://localhost/server.php?resource=delete_student'
+        route = 'http://localhost/server/php/server.php?resource=delete_student'
     }else if( route === 'node' ) {
         route = 'http://localhost:5500/deleteStudent'
     }
@@ -69,7 +69,7 @@ export function deleteStudent(route='php', id){
 export function editStudent(route='php' ,name, course, grade, id){
 
     if(route === 'php'){
-        route = 'http://localhost/server.php?resource=edit_student'
+        route = 'http://localhost/server/php/server.php?resource=edit_student'
     }else if(route === 'node'){
         route = 'http://localhost:5500/editStudent'
     }
