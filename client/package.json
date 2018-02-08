@@ -6,9 +6,6 @@
   "proxy": {
     "/server/*": {
       "target": "http://localhost"
-    },
-    "/student/*":{
-      "target": "http://localhost:5500"
     }
   },
   "scripts": {

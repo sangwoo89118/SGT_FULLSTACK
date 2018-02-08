@@ -11,7 +11,7 @@ export function getStudents(url='php'){
     if(url == 'php'){
         url = '/server/php/server.php?resource=students'
     }else if(url === 'node'){
-        url = 'http://localhost:5500/students'
+        url = 'http://sgt.sangwoo.me:5500/students'
     }
 
     const request = axios.get(url)
