@@ -123,6 +123,6 @@ server.post('/editStudent', function(req,res){
 
 
 
-server.listen(5500, function(){
+server.listen(5500, 'localhost', function(){
     console.log('server is running at port 5500');
 });
