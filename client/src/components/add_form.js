@@ -47,7 +47,7 @@ class AddForm extends Component {
             color: 'red'
         }
 
-
+        console.log('inside renderINput', input);
         const errorMessage = (touched && error) ?
                 <p className='form-control' style={style}>{error}</p> : ''
 
