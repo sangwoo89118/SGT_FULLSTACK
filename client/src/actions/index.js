@@ -71,7 +71,7 @@ export function editStudent(route='php' ,name, course, grade, id){
     if(route === 'php'){
         route = '/server/php/server.php?resource=edit_student'
     }else if(route === 'node'){
-        route = '/holaamigo/editStudent'
+        route = 'http://localhost:5500/editStudent'
     }
 
     const request = axios.post(route,{
