@@ -6,6 +6,9 @@
   "proxy": {
     "/server/*": {
       "target": "http://localhost"
+    },
+    "/nodeServer/*":{
+      "target": "http://localhost:5500"
     }
   },
   "scripts": {
