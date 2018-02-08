@@ -121,6 +121,9 @@ server.post('/editStudent', function(req,res){
 
 
 
-server.listen(5500, function(){
-    console.log('server is running at port 5500')
+server.listen(5500, 'localhost', function(error){
+    if(error){
+        console.log('error on node server', error);
+    }
+    console.log('server is running at port 5500');
 });
