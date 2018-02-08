@@ -47,7 +47,7 @@ export function addStudent(route='php', name, course, grade){
 
 
 export function deleteStudent(route='php', id){
-    console.log('deleteStudent Action');
+
     if(route === 'php'){
         route = '/server/php/server.php?resource=delete_student'
     }else if( route === 'node' ) {
