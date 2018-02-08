@@ -11,7 +11,7 @@ export function getStudents(url='php'){
     if(url == 'php'){
         url = '/server/php/server.php?resource=students'
     }else if(url === 'node'){
-        url = '/student/students'
+        url = 'http://localhost:5500/students'
     }
 
     const request = axios.get(url)
@@ -51,7 +51,7 @@ export function deleteStudent(route='php', id){
     if(route === 'php'){
         route = '/server/php/server.php?resource=delete_student'
     }else if( route === 'node' ) {
-        route = '/student/deleteStudent'
+        route = 'http://localhost:5500/deleteStudent'
     }
 
     const request = axios.post(route,{
