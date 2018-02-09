@@ -23,6 +23,7 @@ class Students extends Component {
         this.showDeleteModal = this.showDeleteModal.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.cancleEdit = this.cancleEdit.bind(this);
     }
 
 
@@ -63,6 +64,13 @@ class Students extends Component {
         })
     }
 
+    cancleEdit(){
+        this.setState({
+            edit: !this.state.edit
+        })
+    }
+
+
 
     deleteStudent(){
         this.props.deleteStudent(this.props.backEndRoute, this.props.id)
@@ -86,8 +94,9 @@ class Students extends Component {
         const button = (
             this.state.edit ?
             <td>
-                <button onClick={this.showDeleteModal} className="delete btn btn-danger">DEL</button>
-                <button onClick={this.toggleEdit} className="delete btn btn-warning">Save</button>
+                <button onClick={this.showDeleteModal} className="btn btn-danger">DEL</button>
+                <button onClick={this.toggleEdit} className="btn btn-success">SAVE</button>
+                <button onClick={this.cancleEdit} className="btn btn-warning">CANCLE</button>
                 {this.state.modalVisible ?
                     <DeleteModal
                         confirmDeleteStudent={this.deleteStudent.bind(this)}
