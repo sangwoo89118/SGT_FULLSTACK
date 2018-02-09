@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteStudent, getStudents, editStudent } from '../actions/'
-import { DeleteModal } from '../helpers/';
+import { DeleteModal, SaveModal } from '../helpers/';
 
 
 class Students extends Component {
@@ -11,7 +11,8 @@ class Students extends Component {
 
 
         this.state={
-            modalVisible: false,
+            deleteModalVisible: false,
+            saveModalVisible: false,
             edit: false,
             form: {
                 name: this.props.name,
@@ -24,6 +25,7 @@ class Students extends Component {
         this.toggleEdit = this.toggleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.cancelEdit = this.cancelEdit.bind(this);
+        this.showSaveModal = this.showSaveModal.bind(this)
     }
 
 
@@ -52,23 +54,25 @@ class Students extends Component {
         }
     }
 
-    showDeleteModal(){
-        this.setState({
-            modalVisible: true,
-        })
-    }
-    hideDeleteModal(){
-        this.setState({
-            modalVisible: false,
-            edit: !this.state.edit
-        })
-    }
-
     cancelEdit(){
         this.setState({
             edit: !this.state.edit
         })
     }
+
+
+    showSaveModal(){
+        this.setState({
+            saveModalVisible: true
+        })
+    }
+
+    hideSaveModal(){
+        this.setState({
+            saveModalVisible: false
+        })
+    }
+
 
 
 
@@ -77,6 +81,25 @@ class Students extends Component {
             .then(()=>this.props.getStudents(this.props.backEndRoute))
                 .then(()=>this.hideDeleteModal(this.props.backEndRoute))
     }
+
+    showDeleteModal(){
+        this.setState({
+            deleteModalVisible: true,
+        })
+    }
+    hideDeleteModal(){
+        this.setState({
+            deleteModalVisible: false,
+            edit: !this.state.edit
+        })
+    }
+
+
+
+
+
+
+
 
     handleChange(e){
         const {value, name} = e.target;
@@ -95,13 +118,22 @@ class Students extends Component {
             this.state.edit ?
             <td>
                 <button onClick={this.showDeleteModal} className="btn btn-danger">DEL</button>
-                <button onClick={this.toggleEdit} className="btn btn-success">SAVE</button>
+                <button onClick={this.showSaveModal} className="btn btn-success">SAVE</button>
                 <button onClick={this.cancelEdit} className="btn btn-warning">CANCEL</button>
-                {this.state.modalVisible ?
+                {this.state.deleteModalVisible ?
                     <DeleteModal
                         confirmDeleteStudent={this.deleteStudent.bind(this)}
                         hideModal={this.hideDeleteModal.bind(this)}
                         data={this.props}/>
+                    :
+                    ''
+                }
+                {this.state.saveModalVisible ?
+                    <SaveModal
+                        confirmSave={this.toggleEdit}
+                        hideModal={this.hideSaveModal.bind(this)}
+                        data={this.state.form}
+                        />
                     :
                     ''
                 }
