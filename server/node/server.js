@@ -3,12 +3,14 @@ const express = require('express');
 const mysql = require('mysql');
 const credentials = require('./mysqlcredentials.js');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 
 const server = express();
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use( bodyParser.json() );
+server.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 server.use(function(req, res, next){
     res.header("Access-Control-Allow-Origin", "*");
@@ -121,6 +123,6 @@ server.post('/editStudent', function(req,res){
 
 
 
-server.listen(5500, function(){
-    console.log('server is running at port 5500')
+server.listen(5500, 'localhost', function(){
+    console.log('server is running at port 5500');
 });
