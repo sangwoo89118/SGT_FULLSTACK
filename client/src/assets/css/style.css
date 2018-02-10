@@ -29,3 +29,8 @@ table td:nth-child(2){
   padding: 15px;
   border-radius: 10px;
 }
+
+
+.card-action button{
+  margin: 0 10px;
+}
