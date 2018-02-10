@@ -12,6 +12,7 @@ class StudentListTable extends Component {
 
 
         this.scrollTop = this.scrollTop.bind(this);
+        this.highestGrade = [];
     }
 
     componentDidMount(){
@@ -19,8 +20,6 @@ class StudentListTable extends Component {
         this.props.getStudents();
         window.addEventListener('scroll', this.scroll)
     }
-
-
 
     scroll(){
         if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
@@ -36,6 +35,8 @@ class StudentListTable extends Component {
 
 
     render() {
+
+
 
         const students = this.props.students.map( (item, index)=>{
             return(
