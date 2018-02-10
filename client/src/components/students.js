@@ -19,7 +19,8 @@ class Students extends Component {
                 course: this.props.course,
                 grade: this.props.grade
             },
-            changed: false
+            changed: false,
+            gradeHolder: ''
         }
         this.showDeleteModal = this.showDeleteModal.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
@@ -61,6 +62,17 @@ class Students extends Component {
 
 
     showSaveModal(){
+        if(!/^[1]?[1-9][0-9]?$|^200$/.test(this.state.form.grade)){
+            this.setState({
+                form:{
+                    ...this.state.form,
+                    grade: ''
+                },
+                gradeHolder: 'Must be 1 - 200'
+            })
+            return
+        }
+
         this.setState({
             saveModalVisible: true
         })
@@ -72,9 +84,6 @@ class Students extends Component {
         })
     }
 
-
-
-
     deleteStudent(){
         this.props.deleteStudent(this.props.backEndRoute, this.props.id)
             .then(()=>this.props.getStudents(this.props.backEndRoute))
@@ -82,8 +91,6 @@ class Students extends Component {
     }
 
     showDeleteModal(){
-
-
         this.setState({
             deleteModalVisible: true,
         })
@@ -94,13 +101,6 @@ class Students extends Component {
             edit: !this.state.edit
         })
     }
-
-
-
-
-
-
-
 
     handleChange(e){
         const {value, name} = e.target;
@@ -156,12 +156,14 @@ class Students extends Component {
         );
 
         const editInputs= (
+
             <tr>
                 <td><input name='name' onChange={this.handleChange} type="text" value={this.state.form.name}/></td>
                 <td><input name='course' onChange={this.handleChange} type="text" value={this.state.form.course}/></td>
-                <td><input title="Please enter the grade 1 - 200" pattern="^[1-9][0-9]?$|^200$" name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
+                <td><input placeholder={this.state.gradeHolder} name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
                 {button}
             </tr>
+
         );
 
         if(this.state.edit){
