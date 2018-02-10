@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-export function getStudents(url='node'){
+export function getStudents(url='php'){
 
     if(url == 'php'){
         url = '/server/php/server.php?resource=students'
