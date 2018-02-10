@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteStudent, getStudents, editStudent } from '../actions/'
-import { DeleteModal } from '../helpers/';
+import { DeleteModal, SaveModal } from '../helpers/';
 
 
 class Students extends Component {
@@ -11,7 +11,8 @@ class Students extends Component {
 
 
         this.state={
-            modalVisible: false,
+            deleteModalVisible: false,
+            saveModalVisible: false,
             edit: false,
             form: {
                 name: this.props.name,
@@ -23,6 +24,8 @@ class Students extends Component {
         this.showDeleteModal = this.showDeleteModal.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.cancelEdit = this.cancelEdit.bind(this);
+        this.showSaveModal = this.showSaveModal.bind(this)
     }
 
 
@@ -45,23 +48,31 @@ class Students extends Component {
 
         if( this.state.changed){
             const {name, course, grade} = this.state.form
-            console.log('toggleEdit', this.props.backEndRoute);
             this.props.editStudent(this.props.backEndRoute, name, course, grade, this.props.id)
                 .then(()=>{ this.props.getStudents(this.props.backEndRoute)})
         }
     }
 
-    showDeleteModal(){
+    cancelEdit(){
         this.setState({
-            modalVisible: true,
-        })
-    }
-    hideDeleteModal(){
-        this.setState({
-            modalVisible: false,
             edit: !this.state.edit
         })
     }
+
+
+    showSaveModal(){
+        this.setState({
+            saveModalVisible: true
+        })
+    }
+
+    hideSaveModal(){
+        this.setState({
+            saveModalVisible: false
+        })
+    }
+
+
 
 
     deleteStudent(){
@@ -69,6 +80,27 @@ class Students extends Component {
             .then(()=>this.props.getStudents(this.props.backEndRoute))
                 .then(()=>this.hideDeleteModal(this.props.backEndRoute))
     }
+
+    showDeleteModal(){
+
+
+        this.setState({
+            deleteModalVisible: true,
+        })
+    }
+    hideDeleteModal(){
+        this.setState({
+            deleteModalVisible: false,
+            edit: !this.state.edit
+        })
+    }
+
+
+
+
+
+
+
 
     handleChange(e){
         const {value, name} = e.target;
@@ -86,13 +118,23 @@ class Students extends Component {
         const button = (
             this.state.edit ?
             <td>
-                <button onClick={this.showDeleteModal} className="delete btn btn-danger">DEL</button>
-                <button onClick={this.toggleEdit} className="delete btn btn-warning">Save</button>
-                {this.state.modalVisible ?
+                <button onClick={this.showDeleteModal} className="btn btn-danger">DEL</button>
+                <button onClick={this.showSaveModal} className="btn btn-success">SAVE</button>
+                <button onClick={this.cancelEdit} className="btn btn-warning">CANCEL</button>
+                {this.state.deleteModalVisible ?
                     <DeleteModal
                         confirmDeleteStudent={this.deleteStudent.bind(this)}
                         hideModal={this.hideDeleteModal.bind(this)}
                         data={this.props}/>
+                    :
+                    ''
+                }
+                {this.state.saveModalVisible ?
+                    <SaveModal
+                        confirmSave={this.toggleEdit}
+                        hideModal={this.hideSaveModal.bind(this)}
+                        data={this.state.form}
+                        />
                     :
                     ''
                 }
@@ -117,7 +159,7 @@ class Students extends Component {
             <tr>
                 <td><input name='name' onChange={this.handleChange} type="text" value={this.state.form.name}/></td>
                 <td><input name='course' onChange={this.handleChange} type="text" value={this.state.form.course}/></td>
-                <td><input name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
+                <td><input title="Please enter the grade 1 - 200" pattern="^[1-9][0-9]?$|^200$" name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
                 {button}
             </tr>
         );
