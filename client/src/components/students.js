@@ -83,6 +83,8 @@ class Students extends Component {
     }
 
     showDeleteModal(){
+
+
         this.setState({
             deleteModalVisible: true,
         })
@@ -158,7 +160,7 @@ class Students extends Component {
             <tr>
                 <td><input name='name' onChange={this.handleChange} type="text" value={this.state.form.name}/></td>
                 <td><input name='course' onChange={this.handleChange} type="text" value={this.state.form.course}/></td>
-                <td><input name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
+                <td><input title="Please enter the grade 1 - 200" pattern="^[1-9][0-9]?$|^200$" name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
                 {button}
             </tr>
         );
