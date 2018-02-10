@@ -48,7 +48,6 @@ class Students extends Component {
 
         if( this.state.changed){
             const {name, course, grade} = this.state.form
-            console.log('toggleEdit', this.props.backEndRoute);
             this.props.editStudent(this.props.backEndRoute, name, course, grade, this.props.id)
                 .then(()=>{ this.props.getStudents(this.props.backEndRoute)})
         }

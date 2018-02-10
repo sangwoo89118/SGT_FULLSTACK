@@ -97,11 +97,11 @@ class AddForm extends Component {
                 <Field name='course' placeholder='Student Course' type='text' glyphicon='glyphicon-list-alt' component={this.renderInput}/>
                 <Field name='grade' placeholder='Student Grade' type='text' glyphicon='glyphicon-education' component={this.renderInput}/>
 
-                <button className="btn btn-success">Add</button>
+                <button className="btn btn-success">ADD</button>
 
                 <div className='pull-right'>
                     <button type="button" className={`btn ${currentRoute === 'php' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('php')}>PHP</button>
-                    <button type="button" className={`btn ${currentRoute === 'node' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('node')}>Node</button>
+                    <button type="button" className={`btn ${currentRoute === 'node' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('node')}>NODE</button>
                 </div>
 
 
