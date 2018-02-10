@@ -147,7 +147,7 @@ class Students extends Component {
         );
 
         const students = (
-            <tr className={parseInt(this.props.grade) === 100 ? 'success' : ''}>
+            <tr className={parseInt(this.props.grade) === 200 ? 'success' : ''}>
                 <td>{this.props.name}</td>
                 <td>{this.props.course}</td>
                 <td>{this.props.grade}</td>
