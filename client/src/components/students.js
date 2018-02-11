@@ -62,7 +62,7 @@ class Students extends Component {
 
 
     showSaveModal(){
-        if(!/^[1]?[1-9][0-9]?$|^200$/g.test(this.state.form.grade)){
+        if(!/^[1]?[0-9][0-9]?$|^200$/g.test(this.state.form.grade)){
             this.setState({
                 form:{
                     ...this.state.form,

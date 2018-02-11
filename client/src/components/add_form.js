@@ -126,7 +126,7 @@ function validate(values){
         error.course = 'Please enter student\'s course';
     }
 
-    if(!values.grade || !/^[1]?[1-9][0-9]?$|^200$/g.test(values.grade)){
+    if(!values.grade || !/^[1]?[0-9][0-9]?$|^200$/g.test(values.grade)){
         error.grade = 'Please enter the grade 1 - 200';
     }
 
