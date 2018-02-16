@@ -36,7 +36,7 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        outputPath: 'assets/fonts/'
+                        outputPath: '/assets/fonts/'
                     }
                 }
             }
