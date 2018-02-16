@@ -44,7 +44,8 @@ class AddForm extends Component {
 
     renderInput({input, input:{onBlur}, type, placeholder, glyphicon, meta:{touched, error}}){
         const style = {
-            color: 'red'
+            color: 'red',
+            height: '100%'
         }
 
 
