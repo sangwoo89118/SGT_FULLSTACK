@@ -68,7 +68,7 @@ class Students extends Component {
                     ...this.state.form,
                     grade: ''
                 },
-                gradeHolder: 'Must be 1 - 200'
+                gradeHolder: 'Must be 0 - 200'
             })
             return
         }

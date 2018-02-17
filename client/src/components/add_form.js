@@ -128,7 +128,7 @@ function validate(values){
     }
 
     if(!values.grade || !/^[1]?[0-9][0-9]?$|^200$/g.test(values.grade)){
-        error.grade = 'Please enter the grade 1 - 200';
+        error.grade = 'Please enter the grade 0 - 200';
     }
 
 
