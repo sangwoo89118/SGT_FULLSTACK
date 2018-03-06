@@ -5,6 +5,7 @@ input{
 table{
     table-layout: fixed;
     width: 100%;
+    margin-bottom:100px;
 }
 
 table td:nth-child(1),
@@ -13,6 +14,7 @@ table td:nth-child(2){
     white-space: pre-line;
     text-overflow:ellipsis;
 }
+
 
 
 #scrollUp {
